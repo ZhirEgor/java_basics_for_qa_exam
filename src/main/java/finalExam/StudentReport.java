@@ -40,15 +40,15 @@ public class StudentReport {
             output.printf("\nCURRICULUM: %s", student.getCurriculum().getCurriculumName());
             output.printf("\nSTART_DATE : %s", student.getStartDate().toString());
             if (timeDifference < 0) {
-                output.printf("\nTraining is not finished. \n%o working hours are left until the end.", Math.abs(timeDifference));
+                output.printf("\nTraining is not finished. \n%s working hours are left until the end.", Math.abs(timeDifference));
             } else {
-                output.printf("\nTraining completed. \n%o hours have passed since the end.", timeDifference);
+                output.printf("\nTraining completed. \n%s hours have passed since the end.", timeDifference);
             }
             output.printf("\nCOURSE     DURATION(hrs)");
             output.printf("\n______________________");
             for (int i = 0; i < student.getCurriculum().getCourseList().size(); i++) {
                 Course course = student.getCurriculum().getCourseList().get(i);
-                output.printf("\n%o. %s          %o", i + 1, course.getCourseName(), course.getCourseDuration());
+                output.printf("\n%s. %s          %s", i + 1, course.getCourseName(), course.getCourseDuration());
             }
         });
     }
