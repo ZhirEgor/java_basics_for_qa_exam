@@ -4,10 +4,6 @@ import java.io.PrintStream;
 
 public class StudentReportRunner {
 
-    public static void main(String[] args) {
-        run(System.out, args);
-    }
-
     public static void run(PrintStream output, String[] arguments) {
         String fileLocation = arguments[0];
         String reportType;

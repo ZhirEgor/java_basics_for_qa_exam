@@ -20,11 +20,11 @@ public class StudentProgressAnalyser {
         return repository.loadStudents()
                 .stream()
                 .collect(Collectors.toMap(p -> p,
-                        t -> countDifferenceBetweenFinishDateAndCurrentTime(t.getStartDate()) - t.getCurriculum().getCurriculumDuration()));
+                        t -> countDifferenceBetweenFinishDateAndCurrentTime(t.getStartDate(), LocalDateTime.now()) - t.getCurriculum().getCurriculumDuration()));
     }
 
-    private Long countDifferenceBetweenFinishDateAndCurrentTime(LocalDateTime startDate) {
-        LocalDateTime currentDate = normalizeLocalDateTime(LocalDateTime.now());
+    public Long countDifferenceBetweenFinishDateAndCurrentTime(LocalDateTime startDate, LocalDateTime finishDate) {
+        LocalDateTime currentDate = normalizeLocalDateTime(finishDate);
         startDate = normalizeLocalDateTime(startDate);
         long hoursAmend = 0;
         if (currentDate.getHour() > startDate.getHour()) {
