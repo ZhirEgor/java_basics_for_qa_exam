@@ -18,4 +18,9 @@ public class Course {
         return courseDuration;
     }
 
+    @Override
+    public String toString() {
+        return courseName + " " + courseDuration;
+    }
+
 }

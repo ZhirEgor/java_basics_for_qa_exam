@@ -42,7 +42,7 @@ public class StudentReport {
             if (timeDifference < 0) {
                 output.printf("\nTraining is not finished. \n%s working hours are left until the end.", Math.abs(timeDifference));
             } else {
-                output.printf("\nTraining completed. \n%s hours have passed since the end.", timeDifference);
+                output.printf("\nTraining completed. \n%s working hours have passed since the end.", timeDifference);
             }
             output.printf("\nCOURSE     DURATION(hrs)");
             output.printf("\n______________________");

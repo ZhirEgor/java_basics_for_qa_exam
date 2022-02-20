@@ -61,9 +61,11 @@ public class StudentProgressAnalyser {
         DayOfWeek dayOfWeek = localDateTime.getDayOfWeek();
         if (dayOfWeek.equals(SATURDAY)) {
             localDateTime = localDateTime.plusDays(2);
+            localDateTime = localDateTime.minusHours(localDateTime.getHour() - 10);
         }
         if (dayOfWeek.equals(SUNDAY)) {
             localDateTime = localDateTime.plusDays(1);
+            localDateTime = localDateTime.minusHours(localDateTime.getHour() - 10);
         }
         return localDateTime;
     }
