@@ -1,21 +1,30 @@
-package finalExamTest;
+package com.gridDynamics.finalExamTest.repositoryTest;
 
-import finalExam.Course;
-import finalExam.Student;
-import finalExam.StudentsRepository;
+import com.gridDynamics.finalExam.models.Course;
+import com.gridDynamics.finalExam.models.Student;
+import com.gridDynamics.finalExam.repository.StudentsRepository;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class StudentRepositoryTest {
 
     @Test
-    public void shouldLoadSampleData() {
+    public void shouldLoadSampleDataTest() {
+
         StudentsRepository repository = new StudentsRepository("src/main/resources/students.csv");
 
-        List<Student> students = repository.loadStudents();
+        List<Student> students = repository.getStudents();
         Student ivanovIvan = students.get(0);
         Student sidorovIvan = students.get(1);
 
@@ -42,5 +51,25 @@ public class StudentRepositoryTest {
                 .as(String.format("Third course is not equal %s", sidorovIvanCourseList.get(2).toString())).isEqualTo("Selenium 16");
 
         softAssertions.assertAll();
+
+    }
+
+    @ParameterizedTest(name = "Validate that StudentRepository class handles unexpected data in csv file")
+    @MethodSource("getInvalidCsvListTestData")
+    public void shouldHandleInvalidDataTest(String fileLocation, String exceptionMessage) {
+        StudentsRepository repository = new StudentsRepository(fileLocation);
+
+        AssertionError thrown = Assertions.assertThrows(AssertionError.class, () -> {
+            List<Student> students = repository.getStudents();
+        });
+
+        assertThat(thrown.getMessage()).as("Exception message doesn't match thrown exception type").isEqualTo(String.format(exceptionMessage));
+    }
+
+    protected static Stream<Arguments> getInvalidCsvListTestData() {
+        return Stream.of(
+                Arguments.of("src/main/resources/studentsInvalidDate.csv", "CSV file contains invalid data format values"),
+                Arguments.of("src/main/resources/studentsInvalidCourseList.csv", "CSV file does not contain all required columns, valid file should contain 8")
+        );
     }
 }

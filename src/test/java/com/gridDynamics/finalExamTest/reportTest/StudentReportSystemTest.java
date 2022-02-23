@@ -1,8 +1,8 @@
-package finalExamTest;
+package com.gridDynamics.finalExamTest.reportTest;
 
-import finalExam.ApplicationRunner;
+import com.gridDynamics.finalExam.runners.ApplicationRunner;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class StudentReportSystemTest {
 
@@ -10,7 +10,7 @@ public class StudentReportSystemTest {
     public void shortReportOutputValidation() {
         ApplicationRunner runner = new ApplicationRunner();
 
-        String output = runner.run("src/main/resources/students.csv", "short");
+        String output = runner.run(0, "src/main/resources/students.csv");
 
         SoftAssertions softAssertions = new SoftAssertions();
 
@@ -27,7 +27,7 @@ public class StudentReportSystemTest {
     public void longReportOutputValidation() {
         ApplicationRunner runner = new ApplicationRunner();
 
-        String output = runner.run("src/main/resources/students.csv", "long");
+        String output = runner.run(1, "src/main/resources/students.csv");
 
         SoftAssertions softAssertions = new SoftAssertions();
 

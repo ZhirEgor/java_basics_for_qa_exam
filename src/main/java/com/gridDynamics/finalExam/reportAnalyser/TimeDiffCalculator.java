@@ -1,27 +1,16 @@
-package finalExam;
+package com.gridDynamics.finalExam.reportAnalyser;
+
+import lombok.NoArgsConstructor;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-import static java.time.DayOfWeek.*;
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
 
-public class StudentProgressAnalyser {
-
-    private final StudentsRepository repository;
-
-    public StudentProgressAnalyser(StudentsRepository repository) {
-        this.repository = repository;
-    }
-
-    public Map<Student, Long> countSpentHours() {
-        return repository.loadStudents()
-                .stream()
-                .collect(Collectors.toMap(p -> p,
-                        t -> countDifferenceBetweenFinishDateAndCurrentTime(t.getStartDate(), LocalDateTime.now()) - t.getCurriculum().getCurriculumDuration()));
-    }
+@NoArgsConstructor
+public class TimeDiffCalculator {
 
     public Long countDifferenceBetweenFinishDateAndCurrentTime(LocalDateTime startDate, LocalDateTime finishDate) {
         LocalDateTime currentDate = normalizeLocalDateTime(finishDate);
